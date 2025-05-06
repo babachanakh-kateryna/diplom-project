@@ -250,8 +250,8 @@ public class DiagramModel implements Subject {
     }
 
     // Експортує модель за допомогою стратегії експорту
-    public void export(ExportStrategy export){
-        export.export(this);
+    public void export(ExportStrategy e){
+        e.exportUML(this);
     }
 
     // Скидає модель до початкового стану

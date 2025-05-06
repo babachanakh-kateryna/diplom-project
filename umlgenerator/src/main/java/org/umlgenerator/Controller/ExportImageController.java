@@ -38,7 +38,7 @@ public class ExportImageController extends Controller{
         File file = fileChooser.showSaveDialog(((MenuItem)event.getSource()).getParentPopup().getScene().getWindow());
 
         if (file != null) {
-            new ExportImage(node, file).export(model);
+            new ExportImage(node, file).exportUML(model);
         }
     }
 }

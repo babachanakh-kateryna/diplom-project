@@ -21,7 +21,7 @@ public class ExportPlantUML implements ExportStrategy {
 
     // Експортує модель діаграми у файл PlantUML
     @Override
-    public void export(DiagramModel m) {
+    public void exportUML(DiagramModel m) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(f));
             writer.write("@startuml");

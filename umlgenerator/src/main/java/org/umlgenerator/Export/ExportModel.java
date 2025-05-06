@@ -18,7 +18,7 @@ public class ExportModel implements ExportStrategy{
 
     // Експортує модель діаграми у серіалізований файл
     @Override
-    public void export(DiagramModel m) {
+    public void exportUML(DiagramModel m) {
         try{
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.f));
             oos.writeObject(m.getClassesPosition());

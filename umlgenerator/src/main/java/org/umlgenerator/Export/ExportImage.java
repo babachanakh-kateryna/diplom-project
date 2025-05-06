@@ -23,7 +23,7 @@ public class ExportImage implements ExportStrategy {
 
     // Експортує діаграму як зображення у форматі PNG
     @Override
-    public void export(DiagramModel m) {
+    public void exportUML(DiagramModel m) {
         SnapshotParameters parameters = new SnapshotParameters();
         WritableImage image = node.snapshot(parameters, null);
         try {

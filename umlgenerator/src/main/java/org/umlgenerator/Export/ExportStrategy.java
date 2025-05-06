@@ -5,5 +5,5 @@ import org.umlgenerator.Model.DiagramModel;
 // Інтерфейс для стратегії експорту діаграми
 public interface ExportStrategy {
     // Експортує модель діаграми
-    public void export(DiagramModel m);
+    public void exportUML(DiagramModel m);
 }
