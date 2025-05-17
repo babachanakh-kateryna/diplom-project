@@ -1,5 +1,6 @@
 package org.umlgenerator.Controller;
 
+import javafx.stage.Stage;
 import org.umlgenerator.Composite.ClassUML;
 import org.umlgenerator.Model.DiagramModel;
 import org.umlgenerator.Composite.RelationUML;
@@ -26,7 +27,7 @@ public class ImportController extends Controller{
     @Override
     public void handle(ActionEvent event) {
         FileChooser selecteurDeFichiers = new FileChooser();
-        selecteurDeFichiers.setTitle("Виберіть файл моделі");
+        selecteurDeFichiers.setTitle("Виберіть файл UML-моделі");
 
         // Дозволяються лише файли з розширенням .chrt
         selecteurDeFichiers.getExtensionFilters().add(new FileChooser.ExtensionFilter(".chrt", "*.chrt"));
@@ -50,4 +51,34 @@ public class ImportController extends Controller{
             System.out.println("Error: file not found or is not a file.");
         }
     }
+
+    // Метод для імпорту файлу з переданим Stage
+    public boolean importFromFile(Stage stage) {
+        FileChooser selecteurDeFichiers = new FileChooser();
+        selecteurDeFichiers.setTitle("Виберіть файл UML-моделі");
+
+        // Дозволяються лише файли з розширенням .chrt
+        selecteurDeFichiers.getExtensionFilters().add(new FileChooser.ExtensionFilter(".chrt", "*.chrt"));
+
+        // Відображення діалогу для вибору файлу
+        File fichier = selecteurDeFichiers.showOpenDialog(stage);
+
+        if (fichier != null && fichier.exists() && fichier.isFile()) {
+            try {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
+                Map<ClassUML, DiagramModel.Position> lc = (Map<ClassUML, DiagramModel.Position>) ois.readObject();
+                List<RelationUML> lr = (List<RelationUML>) ois.readObject();
+                ois.close();
+                model.importModel(lc, lr);
+                return true; // Імпорт успішний
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                return false; // Помилка імпорту
+            }
+        } else {
+            System.out.println("Error: file not found or is not a file.");
+            return false; // Файл не вибрано або недійсний
+        }
+    }
+
 }
