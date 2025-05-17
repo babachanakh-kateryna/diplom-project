@@ -4,10 +4,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.stage.FileChooser;
 import org.umlgenerator.Composite.ClassUML;
 import org.umlgenerator.Composite.FileComposite;
-import org.umlgenerator.Composite.RelationUML;
 import org.umlgenerator.Controller.*;
 import org.umlgenerator.Model.ApplicationState;
 import org.umlgenerator.Model.DiagramModel;
@@ -28,12 +26,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.List;
-import java.util.Map;
+
 
 public class LoginWindow extends Application {
 
@@ -188,18 +181,26 @@ public class LoginWindow extends Application {
         saveItem.setOnAction(new SaveJavaFileController(model));
 
         fichierMenu.getItems().addAll(nouveauDiagrammeVide, importerFichierModele, exporterModele, exporterImage, exporterPuml, saveItem);
-        menuBar.getMenus().add(fichierMenu);
 
-        ToolBar toolBar = new ToolBar();
-        Button addClass = new Button("Додати клас");
-        Button addRelation = new Button("Додати зв'язок");
-        Button editClass = new Button("Редагувати клас");
-        toolBar.getItems().addAll(addClass, addRelation, editClass);
-        addClass.setOnAction(addClassController);
-        addRelation.setOnAction(addRelationController);
-        editClass.setOnAction(modifClasse);
+        Menu fichierMenuEdit = new Menu("Редагувати");
 
-        topContainer.getChildren().addAll(menuBar, toolBar);
+        MenuItem addClassItem = new MenuItem("Додати клас");
+        addClassItem.setOnAction(addClassController);
+
+        MenuItem addRelationItem = new MenuItem("Додати зв'язок");
+        addRelationItem.setOnAction(addRelationController);
+
+        MenuItem editClassItem = new MenuItem("Редагувати клас");
+        editClassItem.setOnAction(modifClasse);
+
+        fichierMenuEdit.getItems().addAll(addClassItem, addRelationItem, editClassItem);
+
+        Menu fichierMenuDovidka = new Menu("Довідка");
+
+        menuBar.getMenus().addAll(fichierMenu, fichierMenuEdit, fichierMenuDovidka);
+
+
+        topContainer.getChildren().addAll(menuBar);
 
         VBox repoContainer = new VBox();
         Button selectRepo = new Button("Обрати репозиторій");
